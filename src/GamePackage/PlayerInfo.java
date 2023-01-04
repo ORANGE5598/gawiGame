@@ -8,6 +8,7 @@ public class PlayerInfo {
 	private int lose;
 	private int draw;
 	private int gamecount;
+	private double winrate;
 	
 	public PlayerInfo(long loginTime, String email, String password) { // 생성자 정의.
 		super();
@@ -76,6 +77,14 @@ public class PlayerInfo {
 
 	public void setGamecount(int gamecount) {
 		this.gamecount = gamecount;
+	}
+
+	public double getWinrate() {
+		return winrate;
+	}
+
+	public void setWinrate(double winrate) {
+		this.winrate = winrate;
 	}
 	
 	
