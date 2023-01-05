@@ -13,7 +13,8 @@ public class GawibawiboMain {
 	public static void startMenu() { // 첫 시작시 호출되는 메서드 startMenu()
 		userInput = JOptionPane.showInputDialog("1. 로그인하기 2. 사용자 계정 생성 3. 기타 메뉴 보기"); // 사용자에게 입력 받기
 		if(userInput.equals("1")) { // 로그인일 경우
-			// 로그인창 메서드 호출
+			Register regi = new Register();
+			regi.inputEmail();
 		} else if(userInput.equals("2")) { // 계정 생성일 경우
 			// 계정생성 메서드 호출
 		} else if(userInput.equals("3")) { // 
