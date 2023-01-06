@@ -18,7 +18,7 @@ public class GawibawiboMain {
 			// 계정생성 메서드 호출
 			Register regi = new Register();
 			regi.inputEmail();
-		} else if(userInput.equals("3")) { // 
+		} else if(userInput.equals("3")) {
 			/* 기타메뉴 메서드 호출
 			 * 1.총 플레이어수
 			 * 2.승률 1위 플레이어 : id의 끝 3자리는 *** 로 표시 및 승률 표시
