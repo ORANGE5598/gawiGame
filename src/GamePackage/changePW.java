@@ -3,77 +3,140 @@ package GamePackage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
 public class changePW {
-	/* 암호 변경 로직 구성
-	 * File list 추출해서 사용자가 입력한 id 비교해서 관련 데이터가 기록된 파일 찾기.
-	 * 사용자에게 현재 password 입력받기
-	 * 기존 내용을 읽어서 기존 password 와 입력한 password 비교
-	 * 같다면, 패스워드 변경 창 출력, 다르다면 틀렸다고 출력
-	 * 변경한 password 입력했다면 기존 데이터 기록 파일에서 수정?? or 
-	 * 다시 startMenu로 이동. 
-	 */
-	public static void main(String[] args) {
-				
-		FileWriter fw = null;
-		BufferedWriter bw = null;
-		FileReader fr = null;
+	private String originalPW; // 기존 비밀번호
+	private String changePW; // 바꿀 비밀번호
+	private String dat = ".dat"; // 유저 파일 확장자명
+
+
+
+	///// 임시!! 
+	private String userId = "Kimkymack1";
+
+	String filePath = "D:\\workspace\\GawiGame\\userData";
+	String readLine;
+	String changeLine;
+	ArrayList<String> list = new ArrayList<>();
+	String[] str = new String[list.size()];
+	int cnt = -1;
+
+	boolean result = false;
+
+	
+
+	public changePW(String showInputDialog) {
+		try {
+			
+			this.originalPW = showInputDialog;
+			System.out.println(originalPW);
+			
+
+		}catch (Exception e) {
+
+		}
+		this.changePW = JOptionPane.showInputDialog("바꿀 비밀번호를 입력하세요.");
+		System.out.println(this.changePW);
+		cmpPassword();
+
+	}
+	
+	public void cmpPassword() {
+		String input = JOptionPane.showInputDialog("기존 비밀번호를 입력하세요.");
+		
+		
+		File inputFile = new File(filePath + "\\" + userId + dat);
+		File outputFile = new File(filePath + "\\" + userId + ".backup");
+
+		FileInputStream fis = null;
 		BufferedReader br = null;
+		FileOutputStream fos = null;
+		BufferedWriter bw = null;
 		
-		String fileDir = "D:\\player";
-		File dir = new File(fileDir);
-		
-		String[] filelists = dir.list(); // 해당 경로에 있는 파일 전체 리스트를 배열로 저장.
-		String userId = "user1.txt"; // ***임시!! 유저 아이디 비교.
-		String userInput; // 사용자가 입력한 패스워드. 이것으로 비교해야함.
-		String password; // passwordtest1234
-		int idCorrectCnt = 0; // 일치카운터
-		ArrayList<String> txtList = new ArrayList<String>(); 
-		// txt에서 긁어온 내용을 ArrayList로 저장함.
-		String str;
-		
-		
-		for(int i = 0; i < filelists.length; i++) { // 반복문으로 전체 파일 이름을 
-			// 리스트 하나씩과 비교 후 일치한다면 카운트 증가.
-			if(filelists[i].equals(userId)) {
-				idCorrectCnt++;
-				System.out.println(userId);
-				System.out.println(filelists[i]);
-				break;
-			}
-		} 
-		
-		if(idCorrectCnt > 0) {
-			userInput = JOptionPane.showInputDialog("기존 비번입력");
-			try { 
-				fr = new FileReader(dir + "\\" + userId); // 회원 id와 일치하는 파일의 경로..
-				br = new BufferedReader(fr); 
-				str = br.readLine();
-				while(txtList != null) {
-					txtList.add(str);
-					str = br.readLine();
+		try {
+			fis = new FileInputStream(inputFile);
+			fos = new FileOutputStream(outputFile);
+			br = new BufferedReader(new InputStreamReader(fis));
+			bw = new BufferedWriter(new OutputStreamWriter(fos));
+			
+			List<String> list = new ArrayList<String>();
+			String str;
+			
+			while((str = br.readLine()) != null) { // 파일 라인을 모두 읽어서 arraylist로 저장
+				list.add(str);
+				if(list.contains("password : " + input)) {
+					System.out.println(list.contains("password : " + input));
+					changeLogic();
 				}
-				
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+
+			}
+			System.out.println(list);
+
+		} catch (Exception e) {
+
+		} finally {
+			try {
+				bw.close();
+				br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		}
-		
-		
-		
 	}
-	
-	
 
+	public void changeLogic() {
+		// File 객체 생성.
+		File inputFile = new File(filePath + "\\" + userId + dat);
+		File outputFile = new File(filePath + "\\" + userId + ".backup");
+
+		FileInputStream fis = null;
+		BufferedReader br = null;
+		FileOutputStream fos = null;
+		BufferedWriter bw = null;
+
+
+		try {
+			fis = new FileInputStream(inputFile);
+			fos = new FileOutputStream(outputFile);
+			br = new BufferedReader(new InputStreamReader(fis));
+			bw = new BufferedWriter(new OutputStreamWriter(fos));
+			
+			while((readLine = br.readLine()) != null) {
+				
+				changeLine = readLine.replace(originalPW, changePW);
+				bw.write(changeLine, 0, changeLine.length());
+				bw.newLine();
+			}
+
+			result = true;
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				bw.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if(result) {
+				inputFile.delete();
+				outputFile.renameTo(new File(filePath + "\\" + userId + dat));
+			}
+		}
+
+
+	}
 }
