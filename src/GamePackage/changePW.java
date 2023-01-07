@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
+
 
 import javax.swing.JOptionPane;
 
@@ -22,78 +22,25 @@ public class changePW {
 
 
 	///// 임시!! 
-	private String userId = "Kimkymack1";
+	private String userId = "Kimkymack1"; 
 
 	String filePath = "D:\\workspace\\GawiGame\\userData";
 	String readLine;
 	String changeLine;
-	ArrayList<String> list = new ArrayList<>();
-	String[] str = new String[list.size()];
-	int cnt = -1;
-
-	boolean result = false;
-
 	
+	List<String> list = new ArrayList<>(); // 파일 내용을 긁어와서 담을 리스트.
+	boolean result = false; // flag
+	
+	public void inputPW() {
+		this.originalPW = JOptionPane.showInputDialog("기존 비밀번호를 입력하세요.");
+		System.out.println(originalPW);
 
-	public changePW(String showInputDialog) {
-		try {
-			
-			this.originalPW = showInputDialog;
-			System.out.println(originalPW);
-			
-
-		}catch (Exception e) {
-
-		}
 		this.changePW = JOptionPane.showInputDialog("바꿀 비밀번호를 입력하세요.");
 		System.out.println(this.changePW);
-		cmpPassword();
-
+		
+		changeLogic();
 	}
 	
-	public void cmpPassword() {
-		String input = JOptionPane.showInputDialog("기존 비밀번호를 입력하세요.");
-		
-		
-		File inputFile = new File(filePath + "\\" + userId + dat);
-		File outputFile = new File(filePath + "\\" + userId + ".backup");
-
-		FileInputStream fis = null;
-		BufferedReader br = null;
-		FileOutputStream fos = null;
-		BufferedWriter bw = null;
-		
-		try {
-			fis = new FileInputStream(inputFile);
-			fos = new FileOutputStream(outputFile);
-			br = new BufferedReader(new InputStreamReader(fis));
-			bw = new BufferedWriter(new OutputStreamWriter(fos));
-			
-			List<String> list = new ArrayList<String>();
-			String str;
-			
-			while((str = br.readLine()) != null) { // 파일 라인을 모두 읽어서 arraylist로 저장
-				list.add(str);
-				if(list.contains("password : " + input)) {
-					System.out.println(list.contains("password : " + input));
-					changeLogic();
-				}
-
-			}
-			System.out.println(list);
-
-		} catch (Exception e) {
-
-		} finally {
-			try {
-				bw.close();
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public void changeLogic() {
 		// File 객체 생성.
 		File inputFile = new File(filePath + "\\" + userId + dat);
@@ -112,7 +59,7 @@ public class changePW {
 			bw = new BufferedWriter(new OutputStreamWriter(fos));
 			
 			while((readLine = br.readLine()) != null) {
-				
+				list.add(readLine);
 				changeLine = readLine.replace(originalPW, changePW);
 				bw.write(changeLine, 0, changeLine.length());
 				bw.newLine();
@@ -127,16 +74,23 @@ public class changePW {
 			try {
 				br.close();
 				bw.close();
+				if(!list.contains("password : " + originalPW)) {
+					JOptionPane.showMessageDialog(null, "입력한 기존 비밀번호가 불일치 합니다. 다시 입력하세요.");
+					outputFile.delete();
+					result = false;
+					inputPW();
+				}
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			if(result) {
 				inputFile.delete();
 				outputFile.renameTo(new File(filePath + "\\" + userId + dat));
+				JOptionPane.showMessageDialog(null, "비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+				GawibawiboMain.startMenu();
 			}
 		}
-
-
 	}
 }

@@ -58,7 +58,8 @@ public class GawibawiboMain {
 			// 마지막 로그인 날짜
 		} else if(userInput.equals("4")) {
 			// 암호 변경 
-			changepw = new changePW(JOptionPane.showInputDialog("기존 비밀번호를 입력하세요."));
+			changepw = new changePW();
+			changepw.inputPW();
 		}
 		
 	}
