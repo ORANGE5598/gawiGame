@@ -54,9 +54,6 @@ public class GawibawiboMain {
 		System.out.println(dto.getPassword());
 		new PlayerDAO().check(dto);
 		
-		
-		
-		
 	}
 	
 	public static void afterLogin() {

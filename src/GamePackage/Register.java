@@ -95,6 +95,11 @@ public class Register {
 			ps.println("email : " + mem_Email);
 			ps.println("ID : " + id);
 			ps.println("password : " + mem_Password);
+			ps.println("count : " + 0);
+			ps.println("win : " + 0);
+			ps.println("draw : " + 0);
+			ps.println("lose : " + 0);
+			ps.println("winrate : " + 0);
 			ps.close();
 		} catch (FileNotFoundException e) {
 			
