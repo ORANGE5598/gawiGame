@@ -19,14 +19,8 @@ public class GawibawiboMain {
 			Register regi = new Register();
 			regi.inputEmail();
 		} else if(userInput.equals("3")) {
-			/* 기타메뉴 메서드 호출
-			 * 1.총 플레이어수
-			 * 2.승률 1위 플레이어 : id의 끝 3자리는 *** 로 표시 및 승률 표시
-			 * 3.승률 꼴찌부터 보기 선택시 승률이 제일 아래인 사용자부터 전체 사용자를 출력해주고
-			 * 역시 ID의 끝 3자리는 *** 로 표기합니다.
-			 * 4.승률 1위 부터 보기는 반대로 보여주고, ID 끝 3자리는 *** 로 표기합니다.
-			 */
-			
+			Etc2 etc = new Etc2();
+			etc.startMessage();
 		} else { // 1 2 3 모두 아닐 경우 재입력 요구
 			JOptionPane.showMessageDialog(null, "잘못 입력했습니다. 다시 시도하세요.");
 			startMenu();
