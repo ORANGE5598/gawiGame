@@ -28,6 +28,7 @@ public class GameLogic {
 			wrongCnt++;
 			JOptionPane.showMessageDialog(null, wrongCnt + "회 " + "잘못 입력하였습니다.");
 			userVal();
+			
 			// 유저 승
 		} else if (userInput.equals(hands[0]) && comValue.equals(hands[2]) || userInput.equals(hands[1]) && comValue.equals(hands[0]) || userInput.equals(hands[2]) && comValue.equals(hands[1])) {
 			gameResult = 0;

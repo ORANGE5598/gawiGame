@@ -7,8 +7,9 @@ public class PlayerInfo {
 	private int win;
 	private int lose;
 	private int draw;
-	private int gamecount;
+	private int total;
 	private double winrate;
+//	private String showstats;
 	
 	public PlayerInfo(long loginTime, String email, String password) { // 생성자 정의.
 		super();
@@ -46,13 +47,25 @@ public class PlayerInfo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public void plusCnt(int result) { // 게임 로직에서 받아오는 result 값
+		// 0 승 1 패 2 무
+		if(result == 0) {
+			setWin(1);
+		} else if(result == 1) {
+			setLose(1);
+		} else if(result == 2) {
+			setDraw(1);
+		}
+	}
 
 	public int getWin() {
 		return win;
 	}
 
 	public void setWin(int win) {
-		this.win = win;
+		this.win += win;
+		setTotal();
 	}
 
 	public int getLose() {
@@ -60,7 +73,8 @@ public class PlayerInfo {
 	}
 
 	public void setLose(int lose) {
-		this.lose = lose;
+		this.lose += lose;
+		setTotal();
 	}
 
 	public int getDraw() {
@@ -68,25 +82,29 @@ public class PlayerInfo {
 	}
 
 	public void setDraw(int draw) {
-		this.draw = draw;
+		this.draw += draw;
+		setTotal();
 	}
 
-	public int getGamecount() {
-		return gamecount;
+	public int getTotal() {
+		return total;
 	}
 
-	public void setGamecount(int gamecount) {
-		this.gamecount = gamecount;
+	public void setTotal() {
+		this.total = this.win + this.lose + this.draw;
 	}
 
-	public double getWinrate() {
-		return winrate;
+	public String getWinrate() {
+		return String.format("%.3f", this.winrate);
 	}
 
 	public void setWinrate(double winrate) {
-		this.winrate = winrate;
+		this.winrate = this.getWin() / (double) this.getTotal() * 100.0;
 	}
 	
+	public String printStats() {
+		return "전적은 다음과 같습니다. \n게임수 : " + getTotal() + " \n승 : " + getWin() + "\n무 : " + getDraw() + "\n패 : " + getLose() + "\n승률 : " + getWinrate();
+	}
 	
 	
 	

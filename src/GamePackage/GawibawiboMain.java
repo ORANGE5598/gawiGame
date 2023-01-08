@@ -48,7 +48,7 @@ public class GawibawiboMain {
 	}
 	
 	public static void afterLogin() {
-		
+		dao = new PlayerDAO();
 		userInput = JOptionPane.showInputDialog("1. 게임시작 2. 전적 보기 3. 마지막 로그인 날짜 확인 4. 암호 변경");
 		if(userInput.equals("1") ) {
 			logic = new GameLogic();
