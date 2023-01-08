@@ -4,6 +4,7 @@ public class PlayerInfo {
 	private long loginTime; // 필드 정의.
 	private String email;
 	private String password;
+	private String userId;
 	private int win;
 	private int lose;
 	private int draw;
@@ -20,11 +21,16 @@ public class PlayerInfo {
 		this.loginTime = loginTime;
 		this.email = email;
 		this.password = password;
+		this.userId = this.email.substring(0, this.email.indexOf('@'));
 	}
 	
 	// @ 기준으로 id만 분류해내기.
-	public String userId() {
-		return this.email.substring(0, this.email.indexOf('@'));
+	public String getuserId() {
+		return userId;
+	}
+	
+	public void setuserId(String id) {
+		this.userId = id;
 	}
 	
 	
