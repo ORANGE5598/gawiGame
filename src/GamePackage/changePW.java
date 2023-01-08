@@ -12,18 +12,18 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.swing.JOptionPane;
 
 public class changePW {
-	PlayerInfo player;
-	String originalPW; // 기존 비밀번호
-	String changePW; // 바꿀 비밀번호
-	String dat = ".dat"; // 유저 파일 확장자명
+	private String originalPW; // 기존 비밀번호
+	private String changePW; // 바꿀 비밀번호
+	private String dat = ".dat"; // 유저 파일 확장자명
 
 
 
 	///// 임시!! 
-	String userId = player.getuserId();
+	private String userId = "Kimkymack1"; 
 
 	String filePath = "D:\\workspace\\GawiGame\\userData";
 	String readLine;
@@ -92,6 +92,6 @@ public class changePW {
 				JOptionPane.showMessageDialog(null, "비밀번호가 변경되었습니다. 다시 로그인해주세요.");
 				GawibawiboMain.startMenu();
 			}
-		} 
+		}
 	}
 }
