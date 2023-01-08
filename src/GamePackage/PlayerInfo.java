@@ -11,6 +11,10 @@ public class PlayerInfo {
 	private double winrate;
 //	private String showstats;
 	
+	public PlayerInfo() { // 생성자 정의.
+		
+	}
+	
 	public PlayerInfo(long loginTime, String email, String password) { // 생성자 정의.
 		super();
 		this.loginTime = loginTime;
@@ -20,9 +24,10 @@ public class PlayerInfo {
 	
 	// @ 기준으로 id만 분류해내기.
 	public String userId() {
-		return this.email.substring(0, this.email.indexOf('@') + 1);
+		return this.email.substring(0, this.email.indexOf('@'));
 	}
-
+	
+	
 	// 이하 getter, setter.
 	public long getLoginTime() {
 		return loginTime;

@@ -120,8 +120,21 @@ public class Register {
 	
 	private void finReg() {	// 회원가입 성공 시 이동되어 가입축하 메세지 출력 후 게임 시작 전 메뉴 호출하는 메서드
 		JOptionPane.showMessageDialog(null, "축하드립니다" + mem_Email + "님 회원가입 되었습니다.");
-		game = new GawibawiboMain();	// 게임 메뉴가 있는 클래스 호출
+		//game = new GawibawiboMain();	// 게임 메뉴가 있는 클래스 호출
 		game.startMenu();
+	}
+	
+	/////// 가입 시 사용된 이메일, 패스워드 get.
+	public String getEmail() {
+		return mem_Email;
+	}
+	
+	public String getPassword() {
+		return mem_Password;
+	}
+	
+	public void setPassword(String passwd) {
+		this.mem_Password = passwd;
 	}
 	
 }
