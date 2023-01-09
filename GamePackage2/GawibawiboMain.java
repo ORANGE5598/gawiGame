@@ -17,10 +17,8 @@ public class GawibawiboMain {
 	
 	////////////////// 이하 객체들은 임시로 생성한 것
 	static private Register register; // 임시
-	static private changePW changepw; // 임시
-//	static private Etc etc;
+	static private ChangePW changepw; // 임시
 	static private EtcTest etc;
-	
 	
 
 	
@@ -37,17 +35,15 @@ public class GawibawiboMain {
 		} else if(userInput.equals("2")) { // 계정 생성일 경우
 			register = new Register();
 			register.inputEmail();
-		} else if(userInput.equals("3")) {
+		} else if(userInput.equals("3")) { // 
 			etc = new EtcTest();
 			etc.startMessage();
-//			etc = new Etc();
-//			etc.startMessage();
 			
 		} else { // 1 2 3 모두 아닐 경우 재입력 요구
 			JOptionPane.showMessageDialog(null, "잘못 입력했습니다. 다시 시도하세요.");
 			startMenu();
 		}
-	
+				
 	}
 	
 	public static void login() {
@@ -58,15 +54,13 @@ public class GawibawiboMain {
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getPassword());
 		new PlayerDAO().check(dto);
-		
-		
-		
+		afterLogin();
 		
 	}
 	
 	public static void afterLogin() {
 		dao = new PlayerDAO();
-		userInput = JOptionPane.showInputDialog("1. 게임시작 2. 전적 보기 3. 마지막 로그인 날짜 확인 4. 암호 변경");
+		userInput = JOptionPane.showInputDialog("1. 게임시작 2. 전적 보기 3. 마지막 로그인 날짜 확인 4. 암호 변경 5. 로그아웃");
 		
 		if(userInput.equals("1") ) {
 			logic = new GameLogic();
@@ -78,10 +72,12 @@ public class GawibawiboMain {
 			// 마지막 로그인 날짜
 		} else if(userInput.equals("4")) {
 			// 암호 변경 
-			changepw = new changePW();
+			changepw = new ChangePW(dto.getEmail(), dto.getPassword(), dto.getuserId());
 			changepw.inputPW();
+		} else if(userInput.equals("5")) {
+			// 로그아웃
+			startMenu();
 		}
-		
 	}
 
 }

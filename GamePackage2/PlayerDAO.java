@@ -13,10 +13,10 @@ public class PlayerDAO {
 	// 필드 정의
 	private PlayerInfo player; // DTO
 	private Register register; // 회원가입
-	private changePW changePW; // 비번변경
+	private ChangePW changePW; // 비번변경
 	private boolean flag;
 	
-	private static String filePath = "C:\\Users\\Manic-063\\git\\gawiGame\\userData";
+	private static String filePath = "C:\\userData";
 	private static File file = new File(filePath);
 	
 	FileWriter fw;
@@ -36,7 +36,7 @@ public class PlayerDAO {
 	public boolean check(PlayerInfo player) { // 파일 목록에 해당 아이디가 있는지..
 		flag = true;
 		File[] fileList = file.listFiles();
-		String id = player.userId() + ".dat";
+		String id = player.getuserId() + ".dat";
 		String pw = null;
 		System.out.println(id + " 아이디");
 		
@@ -63,6 +63,8 @@ public class PlayerDAO {
 					if(pw.equals(player.getPassword())) {
 						flag = true;
 						JOptionPane.showMessageDialog(null, "로그인되었습니다.");
+						fr.close();
+						br.close();
 						GawibawiboMain.afterLogin();
 						break;
 					} else {
