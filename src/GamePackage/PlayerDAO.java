@@ -13,10 +13,10 @@ public class PlayerDAO {
 	// 필드 정의
 	private PlayerInfo player; // DTO
 	private Register register; // 회원가입
-	private changePW changePW; // 비번변경
+	private ChangePW changePW; // 비번변경
 	private boolean flag;
 	
-	private static String filePath = "D:\\\\workspace\\\\GawiGame\\\\userData";
+	private static String filePath = "E:\\workspace2022\\myjava\\userData";
 	private static File file = new File(filePath);
 	
 	FileWriter fw;
@@ -63,6 +63,8 @@ public class PlayerDAO {
 					if(pw.equals(player.getPassword())) {
 						flag = true;
 						JOptionPane.showMessageDialog(null, "로그인되었습니다.");
+						fr.close();
+						br.close();
 						GawibawiboMain.afterLogin();
 						break;
 					} else {

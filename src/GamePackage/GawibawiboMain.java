@@ -17,7 +17,7 @@ public class GawibawiboMain {
 	
 	////////////////// 이하 객체들은 임시로 생성한 것
 	static private Register register; // 임시
-	static private changePW changepw; // 임시
+	static private ChangePW changepw; // 임시
 	
 	
 
@@ -53,6 +53,7 @@ public class GawibawiboMain {
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getPassword());
 		new PlayerDAO().check(dto);
+		afterLogin();
 		
 	}
 	
@@ -70,7 +71,7 @@ public class GawibawiboMain {
 			// 마지막 로그인 날짜
 		} else if(userInput.equals("4")) {
 			// 암호 변경 
-			changepw = new changePW();
+			changepw = new ChangePW(dto.getEmail(), dto.getPassword(), dto.getuserId());
 			changepw.inputPW();
 		}
 		
