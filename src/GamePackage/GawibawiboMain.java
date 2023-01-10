@@ -12,8 +12,9 @@ public class GawibawiboMain {
 	static private boolean flag = false;
 	
 	static private PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
-	static private PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
+	protected static PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
 	static private GameLogic logic; // 실제 가위바위보 로직 수행
+	
 	
 	
 	////////////////// 이하 객체들은 임시로 생성한 것
@@ -32,8 +33,8 @@ public class GawibawiboMain {
 		
 		userInput = JOptionPane.showInputDialog("1. 로그인하기 2. 사용자 계정 생성 3. 기타 메뉴 보기 4. 종료"); // 사용자에게 입력 받기
 		if(userInput.equals("1")) { // 로그인일 경우
-			Login login = new Login();
-			login.showFrame();
+			UserLogin login = new UserLogin();
+			login.loginFrame();
 		} else if(userInput.equals("2")) { // 계정 생성일 경우
 			register = new Register();
 			register.inputEmail();
@@ -65,9 +66,12 @@ public class GawibawiboMain {
 	}
 	
 	public static void afterLogin() {
+		
 		dao = new PlayerDAO();
 		userInput = JOptionPane.showInputDialog("1. 게임시작 2. 전적 보기 3. 마지막 로그인 날짜 확인 4. 암호 변경 5. 로그아웃");
-		
+		System.out.println(dto.getEmail());
+		System.out.println(dto.getPassword());
+		System.out.println(dto.getuserId());
 		if(userInput.equals("1") ) {
 			logic = new GameLogic();
 			gameResult = logic.getResult(); // 게임 결과값 받아옴
