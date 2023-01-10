@@ -16,7 +16,7 @@ public class PlayerDAO {
 	private ChangePW changePW; // 비번변경
 	private boolean flag;
 	
-	private static String filePath = "E:\\workspace2022\\myjava\\userData";
+	private static String filePath = "C:\\userData";
 	private static File file = new File(filePath);
 	
 	FileWriter fw;
@@ -65,7 +65,6 @@ public class PlayerDAO {
 						JOptionPane.showMessageDialog(null, "로그인되었습니다.");
 						fr.close();
 						br.close();
-						GawibawiboMain.afterLogin();
 						break;
 					} else {
 						JOptionPane.showMessageDialog(null, "로그인 실패. 다시 입력하세요.");

@@ -20,12 +20,7 @@ public class ChangePW {
 	String changePW; // 바꿀 비밀번호
 	String dat = ".dat"; // 유저 파일 확장자명
 
-
-
-//	///// 임시!! 
-//	String userId = "Kimkymack2"; 
-
-	String filePath = "E:\\workspace2022\\myjava\\userData";
+	String filePath = "C:\\userData";
 	String readLine;
 	String changeLine;
 	
