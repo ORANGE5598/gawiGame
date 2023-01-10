@@ -48,7 +48,8 @@ class UserLogin extends GawibawiboMain implements ActionListener {
 	BufferedWriter bw;
 	FileReader fr;
 	BufferedReader br;
-
+	
+	
 	void loginFrame() {
 
 		userIDlabel.setBounds(50, 100, 75, 25);
@@ -137,6 +138,7 @@ class UserLogin extends GawibawiboMain implements ActionListener {
 								
 								
 								br.close();
+								
 								GawibawiboMain.afterLogin();
 								System.exit(0);
 								break;

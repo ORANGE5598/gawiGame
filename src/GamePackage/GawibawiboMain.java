@@ -14,8 +14,7 @@ public class GawibawiboMain {
 	static private PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
 	protected static PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
 	static private GameLogic logic; // 실제 가위바위보 로직 수행
-	
-	
+	private static getStats getStats;
 	
 	////////////////// 이하 객체들은 임시로 생성한 것
 	static private Register register; // 임시
@@ -78,11 +77,12 @@ public class GawibawiboMain {
 			dto.plusCnt(gameResult); // 값 plus.
 			
 		} else if(userInput.equals("2")) {
-			// 전적 보여주기
+			getStats = new getStats(dto.getEmail(), dto.getPassword(), dto.getuserId(), dto.getWin(), dto.getDraw(), dto.getLose());
+			
+			
 		} else if(userInput.equals("3")) {
 			// 마지막 로그인 날짜
-		} else if(userInput.equals("4")) {
-			// 암호 변경 
+		} else if(userInput.equals("4")) {	// 암호 변경 
 			changepw = new ChangePW(dto.getEmail(), dto.getPassword(), dto.getuserId());
 			changepw.inputPW();
 		} else if(userInput.equals("5")) {
