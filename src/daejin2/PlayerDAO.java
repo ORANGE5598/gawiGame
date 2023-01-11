@@ -61,9 +61,8 @@ public class PlayerDAO extends GawibawiboMain {
 		
 		String id = dto.getuserId();
 		File inputFile = new File(filePath + "\\" + id + dat); // 유저 id와 일치하는 dat 파일 
-		File outputFile = new File(filePath + "\\" + id + ".backup");
+//		File outputFile = new File(filePath + "\\" + id + ".backup");
 		File[] fileList = file.listFiles(); // userdata 폴더 내 파일 리스트 배열
-//		System.out.println("아이디 : " + id);
 		
 		File Player = null;
 		for(int i = 0; i < fileList.length; i++) {
@@ -76,9 +75,9 @@ public class PlayerDAO extends GawibawiboMain {
 		}
 		try {
 			fis = new FileInputStream(inputFile);
-			fos = new FileOutputStream(outputFile);
+//			fos = new FileOutputStream(outputFile);
 			br = new BufferedReader(new InputStreamReader(fis));
-			bw = new BufferedWriter(new OutputStreamWriter(fos));
+//			bw = new BufferedWriter(new OutputStreamWriter(fos));
 			String str = null;
 			while((str = br.readLine()) != null) {
 				str = str.trim();
