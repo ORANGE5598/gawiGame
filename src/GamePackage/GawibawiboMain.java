@@ -1,25 +1,27 @@
 package GamePackage;
 
 
+import java.io.File;
+
 import javax.swing.JOptionPane;
 
 public class GawibawiboMain {
-	static private String userInput; // 필드 선언
-	static private int gameResult;
+	private static String userInput; // 필드 선언
+	private static int gameResult;
 	
-	static private String email;
-	static private String password;
-	static private boolean flag = false;
+	private static String email;
+	private static String password;
+	private static boolean flag = false;
 	
-	static private PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
+	private static PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
 	protected static PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
-	static private GameLogic logic; // 실제 가위바위보 로직 수행
-	private static getStats getStats;
+	private static GameLogic logic; // 실제 가위바위보 로직 수행
 	
 	////////////////// 이하 객체들은 임시로 생성한 것
-	static private Register register; // 임시
-	static private ChangePW changepw; // 임시
-	static private EtcTest etc;
+	private static Register register; // 임시
+	private static ChangePW changepw; // 임시
+	private static EtcTest etc;
+	
 	
 
 	
@@ -59,6 +61,7 @@ public class GawibawiboMain {
 		
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getPassword());
+		
 		new PlayerDAO().check(dto);
 		afterLogin();
 		
@@ -68,27 +71,50 @@ public class GawibawiboMain {
 		
 		dao = new PlayerDAO();
 		userInput = JOptionPane.showInputDialog("1. 게임시작 2. 전적 보기 3. 마지막 로그인 날짜 확인 4. 암호 변경 5. 로그아웃");
+		
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getPassword());
 		System.out.println(dto.getuserId());
+		
 		if(userInput.equals("1") ) {
 			logic = new GameLogic();
 			gameResult = logic.getResult(); // 게임 결과값 받아옴
 			dto.plusCnt(gameResult); // 값 plus.
 			
 		} else if(userInput.equals("2")) {
-			getStats = new getStats(dto.getEmail(), dto.getPassword(), dto.getuserId(), dto.getWin(), dto.getDraw(), dto.getLose());
-			
+			// 전적을 받아와야함.. 기존 파일에서 전적을 읽을 것이기 때문에 
+			// 파일에서 아이디를 구분할 수 있도록 userid, 승무패, 토탈게임수, 승률 등의 정보가  
+			// dto 안에 있으므로 활용해야함.
+			dao.readInfo();
 			
 		} else if(userInput.equals("3")) {
 			// 마지막 로그인 날짜
+			
 		} else if(userInput.equals("4")) {	// 암호 변경 
 			changepw = new ChangePW(dto.getEmail(), dto.getPassword(), dto.getuserId());
 			changepw.inputPW();
+			
 		} else if(userInput.equals("5")) {
 			// 로그아웃
 			startMenu();
+			
 		}
+	}
+	
+	public static void showStats() {
+		String filePath = "C:\\userData";
+		String dat = ".dat";
+		String id = dto.getuserId();
+		File inputFile = new File(filePath + "\\" + id + dat); // 유저 id와 일치하는 dat 파일 
+		File outputFile = new File(filePath + "\\" + id + ".backup");
+		
+		String userId = dto.getuserId(); // 유저 id 값
+		String win = Integer.toString(dto.getWin()); // 승
+		String draw = Integer.toString(dto.getDraw()); // 무
+		String lose = Integer.toString(dto.getLose()); // 패
+		String total = Integer.toString(dto.getTotal()); // 총판수
+		String winrate = dto.getWinrate();
+		
 	}
 
 }

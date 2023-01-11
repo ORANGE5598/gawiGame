@@ -24,6 +24,7 @@ public class PlayerInfo {
 		this.userId = this.email.substring(0, this.email.indexOf('@'));
 		
 		///// 기존에 있는 전적을 긁어오려면,,, 여기에 파일 인아웃스트림해서 읽어와야 하나??
+		
 	}
 	
 	// @ 기준으로 id만 분류해내기.
