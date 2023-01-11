@@ -1,4 +1,4 @@
-package GamePackage;
+package daejin2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
 /* 회원가입 시 설정된 암호 맞는지 검사
  * 
  * 로그인시 [' '님 환영합니다] 출력
@@ -36,25 +35,22 @@ class LogIn extends GawibawiboMain implements ActionListener {
 	JLabel userPWlabel = new JLabel("password : ");
 
 	Date now = new Date(System.currentTimeMillis());
-	SimpleDateFormat simple = new SimpleDateFormat("(a hh:mm)");
-
-	int chance = 3; // 비밀번호 기회
+	SimpleDateFormat formatDate = new SimpleDateFormat("(a hh:mm)");
+	String date = formatDate.format(now);
+	
+	int chance = 4; // 비밀번호 기회
 	private boolean flag;
 	private static String filePath = "C:\\userData";
 	private static File file = new File(filePath);
 
-	public static PlayerInfo dto;
 	FileWriter fw;
 	BufferedWriter bw;
 	FileReader fr;
 	BufferedReader br;
-	ChangePW newpw;
-
+	
 	void loginFrame() {
 
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		userIDlabel.setBounds(50, 100, 75, 25);
 		userPWlabel.setBounds(50, 150, 75, 25);
@@ -112,11 +108,11 @@ class LogIn extends GawibawiboMain implements ActionListener {
 			File[] fileList = file.listFiles();
 			String username = txtID.getText(); // 텍스트필드에 입력한값을 가져옴
 			String userpass = txtPW.getText();
-			dto = new PlayerInfo(System.currentTimeMillis(), username, password);
+			dto = new PlayerInfo(date, username, password);
+			dto.setLoginTime(date);
 			String id = dto.getuserId() + ".dat";
-			String pw = null;
+//			String pw = null;
 			File Player = null;
-			boolean check = false;//비밀번호 확인
 
 			for (int i = 0; i < fileList.length; i++) {
 				Player = fileList[i];
@@ -136,17 +132,17 @@ class LogIn extends GawibawiboMain implements ActionListener {
 						while (true) {
 							if (userpass.equals(dto.getPassword())) {
 								flag = true;
-								JOptionPane.showMessageDialog(null, "반갑습니다" + id + "님 즐거운하루되세요", "WELLCOM!!" + id,
+								JOptionPane.showMessageDialog(null, "반갑습니다" + dto.getuserId() + "님 즐거운하루되세요", "WELLCOM!!" + id,
 										JOptionPane.PLAIN_MESSAGE);
 
 								frame.setVisible(false);
 								br.close();
-
-								check = true;
+								GawibawiboMain.afterLogin();
+								flag = true;
 								break Outer;
 
 							} else if (chance != 1) {
-								JOptionPane.showMessageDialog(null, "로그인 오류! 기회 :" + chance, "Login_WARNING",
+								JOptionPane.showMessageDialog(null, "로그인 오류! 기회 :" + (chance -1), "Login_WARNING",
 										JOptionPane.WARNING_MESSAGE);
 								chance--;
 								return;
