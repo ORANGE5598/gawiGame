@@ -1,4 +1,4 @@
-package GamePackage;
+package daejin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 public class Register {
-	
+
 	GawibawiboMain game;
 	String mem_Email, id, mem_Password, fName, fileName;
 	char[] chEmail;
@@ -65,7 +65,7 @@ public class Register {
 	private void idDuple() {
 		
 		fileName = id + ".dat";
-		fName = "userData";
+		fName = "C:\\userData";
 //		folder = new File("C:\\Users\\wjddu\\eclipse-workspace\\myjava\\" + fName);
 		folder = new File(fName);
 		file = new File(folder,fileName);
@@ -92,9 +92,16 @@ public class Register {
 			FileOutputStream fos = new FileOutputStream(file, true);
 			PrintStream ps = new PrintStream(fos);
 			ps.println("regDate : " + firstDate.format(cal.getTime()));
+			ps.println("logInDate : " + "");
+			ps.println("logOutDate : " + "");
 			ps.println("email : " + mem_Email);
 			ps.println("ID : " + id);
 			ps.println("password : " + mem_Password);
+			ps.println("count : " + 0);
+			ps.println("win : " + 0);
+			ps.println("draw : " + 0);
+			ps.println("lose : " + 0);
+			ps.println("winRate : " + 0);
 			ps.close();
 		} catch (FileNotFoundException e) {
 			
@@ -120,8 +127,21 @@ public class Register {
 	
 	private void finReg() {	// 회원가입 성공 시 이동되어 가입축하 메세지 출력 후 게임 시작 전 메뉴 호출하는 메서드
 		JOptionPane.showMessageDialog(null, "축하드립니다" + mem_Email + "님 회원가입 되었습니다.");
-		game = new GawibawiboMain();	// 게임 메뉴가 있는 클래스 호출
+		//game = new GawibawiboMain();	// 게임 메뉴가 있는 클래스 호출
 		game.startMenu();
+	}
+	
+	/////// 가입 시 사용된 이메일, 패스워드 get.
+	public String getEmail() {
+		return mem_Email;
+	}
+	
+	public String getPassword() {
+		return mem_Password;
+	}
+	
+	public void setPassword(String passwd) {
+		this.mem_Password = passwd;
 	}
 	
 }
