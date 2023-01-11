@@ -54,7 +54,6 @@ public class GawibawiboMain {
 //			String result = dto.printStats();
 //			JOptionPane.showMessageDialog(null, result);
 			dao.readInfo();
-			
 			// 전적 보여주기
 		} else if(userInput.equals("3")) {
 			// 마지막 로그인 날짜

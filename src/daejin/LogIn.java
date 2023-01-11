@@ -43,7 +43,6 @@ class LogIn extends GawibawiboMain implements ActionListener {
 	private static String filePath = "C:\\userData";
 	private static File file = new File(filePath);
 
-//	public static PlayerInfo dto;
 	FileWriter fw;
 	BufferedWriter bw;
 	FileReader fr;

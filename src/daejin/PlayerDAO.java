@@ -20,7 +20,7 @@ public class PlayerDAO extends GawibawiboMain {
 	private ChangePW changePW; // 비번변경
 	private boolean flag;
 	
-	private static String filePath = "C:\\userData";
+	private static String filePath = "C:\\userData";	// 경로
 	private static File file = new File(filePath);
 	private static String dat = ".dat";
 	

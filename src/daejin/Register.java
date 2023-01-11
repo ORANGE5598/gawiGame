@@ -9,7 +9,7 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 public class Register {
-	
+
 	GawibawiboMain game;
 	String mem_Email, id, mem_Password, fName, fileName;
 	char[] chEmail;

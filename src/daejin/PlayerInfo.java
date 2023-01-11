@@ -98,7 +98,6 @@ public class PlayerInfo {
 
 	public void setDraw(int draw) {
 		this.draw = draw;
-//		setTotal();
 	}
 
 	public int getCount() {

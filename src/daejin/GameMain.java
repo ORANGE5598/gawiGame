@@ -18,7 +18,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class GameMain extends GawibawiboMain {
-//	PlayerInfo playerinfo = new PlayerInfo();
 	GawibawiboMain gawibawibomain = new GawibawiboMain();
 	private char start;
 	int com;

@@ -19,7 +19,7 @@ public class ChangePW {
 	String originalPW; // 기존 비밀번호
 	String changePW; // 바꿀 비밀번호
 	String dat = ".dat"; // 유저 파일 확장자명
-
+	
 	String filePath = "C:\\userData";
 	String readLine;
 	String changeLine;
