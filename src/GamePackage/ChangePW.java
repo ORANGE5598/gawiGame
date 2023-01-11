@@ -1,10 +1,11 @@
-package GamePackage2;
+package daejin;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ChangePW {
 	String originalPW; // 기존 비밀번호
 	String changePW; // 바꿀 비밀번호
 	String dat = ".dat"; // 유저 파일 확장자명
-
+	
 	String filePath = "C:\\userData";
 	String readLine;
 	String changeLine;

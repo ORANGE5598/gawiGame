@@ -1,25 +1,18 @@
-package daejin;
+package GamePackage2;
 
 import javax.swing.JOptionPane;
 
 public class GawibawiboMain {
 	static private String userInput; // 필드 선언
 	static private int gameResult;
-	
 	static private String email;
 	static private String password;
 	static private boolean flag = false;
-	
 	static private PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
 	static private PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
-	static private GameLogic logic; // 실제 가위바위보 로직 수행
-	
-	
-	////////////////// 이하 객체들은 임시로 생성한 것
-	static private Register register; // 임시
-	static private changePW changepw; // 임시
+	static private Register register;
+	static private ChangePW changepw;
 	static private Etc etc;
-	
 	
 
 	
@@ -32,7 +25,9 @@ public class GawibawiboMain {
 		
 		userInput = JOptionPane.showInputDialog("1. 로그인하기 2. 사용자 계정 생성 3. 기타 메뉴 보기"); // 사용자에게 입력 받기
 		if(userInput.equals("1")) { // 로그인일 경우
-			login();
+			LogIn logIn = new LogIn();
+			logIn.loginFrame();
+//			login();
 		} else if(userInput.equals("2")) { // 계정 생성일 경우
 			register = new Register();
 			register.inputEmail();
@@ -44,7 +39,7 @@ public class GawibawiboMain {
 			JOptionPane.showMessageDialog(null, "잘못 입력했습니다. 다시 시도하세요.");
 			startMenu();
 		}
-	
+				
 	}
 	
 	public static void login() {
@@ -55,30 +50,36 @@ public class GawibawiboMain {
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getPassword());
 		new PlayerDAO().check(dto);
-		
-		
-		
+		afterLogin();
 		
 	}
 	
 	public static void afterLogin() {
+		
 		dao = new PlayerDAO();
 		userInput = JOptionPane.showInputDialog("1. 게임시작 2. 전적 보기 3. 마지막 로그인 날짜 확인 4. 암호 변경");
 		
-		if(userInput.equals("1") ) {
-			logic = new GameLogic();
-			gameResult = logic.getResult(); // 게임 결과값 받아옴
+		if(userInput.equals("1")) {
+			GameMain gamemain = new GameMain();
+			gamemain.choiceSomething();
 			
 		} else if(userInput.equals("2")) {
+			PlayerInfo playerinfo = new PlayerInfo();
+			String result = playerinfo.printStats();
+			JOptionPane.showMessageDialog(null, result);
+			
 			// 전적 보여주기
 		} else if(userInput.equals("3")) {
 			// 마지막 로그인 날짜
 		} else if(userInput.equals("4")) {
 			// 암호 변경 
-			changepw = new changePW();
+			changepw = new ChangePW(dto.getEmail(), dto.getPassword(), dto.getuserId());
 			changepw.inputPW();
 		}
 		
 	}
 
+	
+
 }
+	

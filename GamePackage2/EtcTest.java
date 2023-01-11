@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class Etc {
+public class EtcTest {
 	String path = "C:\\userData";
 	String nthLine, subLine, maskId, input, winRate, userId;
 	int winRate2;

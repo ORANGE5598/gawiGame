@@ -1,4 +1,4 @@
-package GamePackage2;
+package daejin;
 
 import java.io.File;
 import java.io.FileNotFoundException;

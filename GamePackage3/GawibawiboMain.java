@@ -1,16 +1,18 @@
-package daejin;
+package GamePackage2;
 
 import javax.swing.JOptionPane;
 
 public class GawibawiboMain {
-	private static String userInput; // 필드 선언
-//	private static String email;
-//	private static String password;
-	private static PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
-	protected static PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
-	private static Register register;
-	private static ChangePW changepw;
-	private static Etc etc;
+	static private String userInput; // 필드 선언
+	static private String email;
+	static private String password;
+	static private PlayerDAO dao; // DAO 에서 대부분의 작업을 수행할 예정임.
+	static private PlayerInfo dto; // 사용자의 모든 데이터는 DTO를 사용하여 수행.
+	static private Register register;
+	static private ChangePW changepw;
+	static private Etc etc;
+	
+
 	
 	public static void main(String[] args) {
 		startMenu();
@@ -23,6 +25,7 @@ public class GawibawiboMain {
 		if(userInput.equals("1")) { // 로그인일 경우
 			LogIn logIn = new LogIn();
 			logIn.loginFrame();
+//			login();
 		} else if(userInput.equals("2")) { // 계정 생성일 경우
 			register = new Register();
 			register.inputEmail();
@@ -38,7 +41,19 @@ public class GawibawiboMain {
 			JOptionPane.showMessageDialog(null, "잘못 입력했습니다. 다시 시도하세요.");
 			startMenu();
 		}
+				
+	}
 	
+	public static void login() {
+		email = JOptionPane.showInputDialog("이메일을 입력하세요.");
+		password = JOptionPane.showInputDialog("패스워드를 입력하세요.");
+		dto = new PlayerInfo(System.currentTimeMillis(), email, password);
+		
+		System.out.println(dto.getEmail());
+		System.out.println(dto.getPassword());
+		new PlayerDAO().check(dto);
+		afterLogin();
+		
 	}
 	
 	public static void afterLogin() {
@@ -51,9 +66,10 @@ public class GawibawiboMain {
 			gamemain.choiceSomething();
 			
 		} else if(userInput.equals("2")) {
-//			String result = dto.printStats();
-//			JOptionPane.showMessageDialog(null, result);
-			dao.readInfo();
+			PlayerInfo playerinfo = new PlayerInfo();
+			String result = playerinfo.printStats();
+			JOptionPane.showMessageDialog(null, result);
+			
 			// 전적 보여주기
 		} else if(userInput.equals("3")) {
 			// 마지막 로그인 날짜

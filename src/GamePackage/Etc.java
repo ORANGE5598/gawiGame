@@ -1,4 +1,4 @@
-package GamePackage2;
+package daejin;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,7 +110,7 @@ public class Etc {
 			}	// try~catch의 끝
 		}	// for문의 끝
 		
-		Collections.sort(al);	// ArrayList al을 오름차순으로 정렬
+		Collections.sort(al);	// 오름차순으로 정렬
 		JOptionPane.showMessageDialog(null, al);	// 정렬한 내용을 출력
 		
 		startMessage();		// 출력 이후 다시 메뉴로 돌아감
@@ -138,7 +138,7 @@ public class Etc {
 			}	// try~catch의 끝
 		}	// for문의 끝
 		
-		Collections.sort(al, Collections.reverseOrder());	// ArrayList al을 내림차순으로 정렬
+		Collections.sort(al, Collections.reverseOrder());	//  내림차순으로 정렬
 		JOptionPane.showMessageDialog(null, al);	// 정렬한 내용을 출력
 		
 		startMessage();		// 출력 이후 다시 메뉴로 돌아감

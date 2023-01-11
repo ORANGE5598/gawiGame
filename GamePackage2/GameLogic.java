@@ -1,4 +1,4 @@
-package daejin;
+package GamePackage2;
 
 import javax.swing.JOptionPane;
 

@@ -1,4 +1,4 @@
-package GamePackage2;
+package daejin;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 public class PlayerDAO {
 	// 필드 정의
 	private PlayerInfo player; // DTO
-	private Register register; // 회원가입
-	private ChangePW changePW; // 비번변경
+//	private Register register; // 회원가입
+//	private ChangePW changePW; // 비번변경
 	private boolean flag;
 	
 	private static String filePath = "C:\\userData";
@@ -69,7 +69,7 @@ public class PlayerDAO {
 						break;
 					} else {
 						JOptionPane.showMessageDialog(null, "로그인 실패. 다시 입력하세요.");
-						GawibawiboMain.login();
+						GawibawiboMain.startMenu();
 					}
 				}
 			}
