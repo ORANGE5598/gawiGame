@@ -34,11 +34,11 @@ class LogIn extends GawibawiboMain implements ActionListener {
 	JLabel userIDlabel = new JLabel("Email : ");
 	JLabel userPWlabel = new JLabel("password : ");
 
-	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss");
 	Date now = new Date(System.currentTimeMillis());
+	SimpleDateFormat formatDate = new SimpleDateFormat("(a hh:mm)");
 	String date = formatDate.format(now);
-
-	int i = 0;
+	
+	int chance = 3; // 비밀번호 기회
 	private boolean flag;
 	private static String filePath = "C:\\userData";
 	private static File file = new File(filePath);
@@ -47,12 +47,10 @@ class LogIn extends GawibawiboMain implements ActionListener {
 	BufferedWriter bw;
 	FileReader fr;
 	BufferedReader br;
-
-	public LogIn() {
-		loginFrame();
-	}
-
+	
 	void loginFrame() {
+
+		frame.setLocationRelativeTo(null);
 
 		userIDlabel.setBounds(50, 100, 75, 25);
 		userPWlabel.setBounds(50, 150, 75, 25);
@@ -76,7 +74,7 @@ class LogIn extends GawibawiboMain implements ActionListener {
 		frame.add(reBtn);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(420, 420); // 창의 크기 정의
+		frame.setSize(420, 420);
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}
@@ -115,6 +113,7 @@ class LogIn extends GawibawiboMain implements ActionListener {
 			String id = dto.getuserId() + ".dat";
 //			String pw = null;
 			File Player = null;
+			boolean check = false;//비밀번호 확인
 
 			for (int i = 0; i < fileList.length; i++) {
 				Player = fileList[i];
@@ -127,42 +126,42 @@ class LogIn extends GawibawiboMain implements ActionListener {
 			try (BufferedReader br = new BufferedReader(new FileReader(Player.getAbsolutePath()))) {
 				String str = null;
 
-				outer: while ((str = br.readLine()) != null) { // 파일 한줄씩 읽어오기
+				Outer: while ((str = br.readLine()) != null) {
 					if (str.startsWith("password")) {
 						userpass = str.substring(str.indexOf(":") + 2, str.length());
 
-						while (i < 3) {
+						while (true) {
 							if (userpass.equals(dto.getPassword())) {
 								flag = true;
-								JOptionPane.showMessageDialog(null, "반갑습니다" + dto.getuserId() + "님 즐거운하루되세요.",
-										"WELLCOM!!" + id, JOptionPane.PLAIN_MESSAGE);
+								JOptionPane.showMessageDialog(null, "반갑습니다" + dto.getuserId() + "님 즐거운하루되세요", "WELLCOM!!" + id,
+										JOptionPane.PLAIN_MESSAGE);
+
 								frame.setVisible(false);
 								br.close();
 								GawibawiboMain.afterLogin();
-//								System.exit(0);
-								break outer;
+								check = true;
+								break Outer;
 
-							} else {
-								JOptionPane.showMessageDialog(null, "로그인" + i + "회 오류!", "Login_WARNING",
+							} else if (chance != 1) {
+								JOptionPane.showMessageDialog(null, "로그인 오류! 기회 :" + chance, "Login_WARNING",
 										JOptionPane.WARNING_MESSAGE);
-								i++;
+								chance--;
 								return;
+							} else if (chance == 1) {
+								JOptionPane.showMessageDialog(null, "로그인 3회 오류. 시스템을 종료합니다.", "관리자 연락요망",
+										JOptionPane.ERROR_MESSAGE);
+								System.exit(0);
 							}
 						}
 					}
-					if (i == 3) {
-						JOptionPane.showMessageDialog(null, i + "회 오류로 시스템을 종료합니다.", "관리자 연락요망",
-								JOptionPane.ERROR_MESSAGE);
-						System.exit(0);
-					}
-
 				}
+
 			} catch (IOException ex) {
+				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, ex.getMessage(), "File Read Error!", JOptionPane.WARNING_MESSAGE);
 			}
 			return;
-
 		}
-	}
 
+	}
 }
